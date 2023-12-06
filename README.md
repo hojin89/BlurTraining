@@ -5,7 +5,7 @@
   <h3 align="center">Blur Training</h3>
 
   <p align="center">
-    This GitHub page explains the method of data augmentation with blurry images from the paper, "Improved modeling of human vision by incorporating robustness to blur in convolutional neural networks" by Hojin Jang and Frank Tong. If you have any questions, please contact me at jangh@mit.edu.
+    This GitHub repository contains the training code for data augmentation using blurry images, as detailed in the research paper "Improved modeling of human vision by incorporating robustness to blur in convolutional neural networks" authored by Hojin Jang and Frank Tong. For any inquiries, you can reach out to me at jangh@mit.edu.
     <br />
     <br />
     <a href="https://www.biorxiv.org/content/10.1101/2023.07.29.551089v1">Article</a>
