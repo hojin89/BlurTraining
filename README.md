@@ -25,19 +25,35 @@ While factors like network architectures and learning principles are crucial, ou
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+```
+def add_blur_with(images, sigmas, weights):
+    blurred_images = torch.zeros_like(images)
+    normalize = transforms.Normalize(mean=[0.449], std=[0.226]) # grayscale
+    # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) # rgb
+
+    for i in range(images.size(0)): # Batch size
+        image = images[i, :, :, :]
+
+        weights = numpy.asarray(weights).astype('float64')
+        weights = weights / numpy.sum(weights)
+        sigma = choice(sigmas, 1, p=weights)[0]
+        kernel_size = 2 * math.ceil(2.0 * sigma) + 1
+
+        if sigma == 0:
+            blurred_image = image
+        else:
+            blurred_image = kornia.gaussian_blur2d(torch.unsqueeze(image, dim=0), kernel_size=(kernel_size, kernel_size), sigma=(sigma, sigma))[0, :, :, :]
+        blurred_image = normalize(blurred_image)
+        blurred_images[i] = blurred_image
+
+        # fig, axes = plt.subplots(1,1)
+        # axes[0].imshow(blurred_image.cpu().squeeze()) # Grayscale
+        # plt.show()
+
+    blurred_images = blurred_images.repeat(1, 3, 1, 1) # Grayscale to RGB
+    return blurred_images
+
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
