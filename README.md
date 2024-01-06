@@ -23,17 +23,15 @@ While factors like network architectures and learning principles are crucial, ou
 
 ### Codes
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Below is the main code for blur training employed in this study. It contains a custom function for adjusting the sampling weights corresponding to a range of sigma values. Additionally, we integrated the Kornia library, speeding the process of Gaussian blurring via Tensor operations. Users can also refer to the latest PyTorch version, which includes the torchvision.transforms.GaussianBlur() function. This function allows for the blurring of images with a sigma value that is randomly determined. Tensorflow also offers the function tfa.image.gaussian_filter2d() to achieve similar outcomes. 
 
 ```
 def add_blur_with(images, sigmas, weights):
     blurred_images = torch.zeros_like(images)
     normalize = transforms.Normalize(mean=[0.449], std=[0.226]) # grayscale
-    # normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) # rgb
 
     for i in range(images.size(0)): # Batch size
         image = images[i, :, :, :]
-
         weights = numpy.asarray(weights).astype('float64')
         weights = weights / numpy.sum(weights)
         sigma = choice(sigmas, 1, p=weights)[0]
@@ -45,10 +43,6 @@ def add_blur_with(images, sigmas, weights):
             blurred_image = kornia.gaussian_blur2d(torch.unsqueeze(image, dim=0), kernel_size=(kernel_size, kernel_size), sigma=(sigma, sigma))[0, :, :, :]
         blurred_image = normalize(blurred_image)
         blurred_images[i] = blurred_image
-
-        # fig, axes = plt.subplots(1,1)
-        # axes[0].imshow(blurred_image.cpu().squeeze()) # Grayscale
-        # plt.show()
 
     blurred_images = blurred_images.repeat(1, 3, 1, 1) # Grayscale to RGB
     return blurred_images
