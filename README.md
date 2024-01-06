@@ -55,6 +55,8 @@ def add_blur_with(images, sigmas, weights):
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
+This research was supported by the following grants from the National Eye Institute, National Institutes of Health (NEI/NIH): R01EY035157 and R01EY029278 to Frank Tong(http://www.psy.vanderbilt.edu/tonglab/web/Home.html), and P30EY008126 to the Vanderbilt Vision Research Center.
+
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
